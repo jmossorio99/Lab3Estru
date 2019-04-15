@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingWindowController" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingWindowController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="800.0">
+         <children>
+            <Label styleClass="title" text="Stock and currency market tool" />
+         </children>
+      </HBox>
+      <VBox layoutY="89.0" prefHeight="300.0" prefWidth="800.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="160.0" spacing="20.0">
+                     <children>
+                        <Label styleClass="subtitle" text="Initial date" />
+                        <TextField fx:id="initialDateTextField" promptText="m/d/yyyy hh:m" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="160.0" spacing="20.0">
+                     <children>
+                        <Label styleClass="subtitle" text="Final date" />
+                        <TextField fx:id="finalDateTextField" promptText="m/d/yyyy hh:m" />
+                     </children>
+                  </VBox>
+                  <Label prefHeight="17.0" prefWidth="129.0" styleClass="subtitle" text="Insert the date range" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="togglesHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <ToggleButton fx:id="US30Toggle" mnemonicParsing="false" styleClass="toggle" text="#US30" />
+                  <ToggleButton fx:id="USSPX500Toggle" mnemonicParsing="false" styleClass="toggle" text="#USSPX500" />
+                  <ToggleButton fx:id="WTIToggle" mnemonicParsing="false" styleClass="toggle" text="#WTI" />
+                  <ToggleButton fx:id="BTCUSDToggle" mnemonicParsing="false" styleClass="toggle" text="BTCUSD" />
+                  <ToggleButton fx:id="EURUSDToggle" mnemonicParsing="false" styleClass="toggle" text="EURUSD" />
+                  <ToggleButton fx:id="GBPCADToggle" mnemonicParsing="false" styleClass="toggle" text="GBPCAD" />
+                  <ToggleButton fx:id="USDJPYToggle" mnemonicParsing="false" styleClass="toggle" text="USDJPY" />
+                  <ToggleButton fx:id="XAUUSDToggle" mnemonicParsing="false" styleClass="toggle" text="XAUUSD" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#highestPriceBtnPressed" text="Highest price" />
+                  <Button mnemonicParsing="false" onAction="#lowestPriceBtnPressed" text="Lowest price" />
+                  <Button mnemonicParsing="false" onAction="#singleHighestGrowthBtnPressed" text="Highest growth dates" />
+                  <Button mnemonicParsing="false" onAction="#showGraphBtnPressed" text="Show graph" />
+                  <Button mnemonicParsing="false" onAction="#stockAboveValueBtnPressed" text="wait what" />
+                  <Button mnemonicParsing="false" onAction="#threeGreatestGrowthBtnPressed" text="Three with the greatest growth" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="100.0" layoutY="432.0" prefHeight="100.0" prefWidth="600.0" spacing="20.0">
+         <children>
+            <Label fx:id="textResultLbl" styleClass="result" />
+            <Label fx:id="resultLbl" styleClass="result" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
