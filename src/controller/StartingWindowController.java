@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.regex.Pattern;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -72,7 +74,7 @@ public class StartingWindowController {
 
 	@FXML
 	void togglePressed(ActionEvent event) {
-		
+
 		toggled = (ToggleButton) event.getSource();
 		if (alreadyToggled) {
 			for (Node node : togglesHBox.getChildren()) {
@@ -87,6 +89,26 @@ public class StartingWindowController {
 			alreadyToggled = true;
 			prevToggled = toggled;
 		}
+
+	}
+
+	private boolean verifySelections() {
+
+		if (!initialDateTextField.getText().isEmpty() && !finalDateTextField.getText().isEmpty() && correctDateFormat()
+				&& toggled != null) {
+			return true;
+		}
+		return false;
+
+	}
+
+	private boolean correctDateFormat() {
+
+		if (Pattern.matches("\\d\\d?/\\d\\d?/\\d{4}\\s\\d\\d?:\\d\\d?", initialDateTextField.getText())
+				&& Pattern.matches("\\d\\d?/\\d\\d?/\\d{4}\\s\\d\\d?:\\d\\d?", finalDateTextField.getText())) {
+			return true;
+		}
+		return false;
 
 	}
 
