@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -35,6 +36,9 @@ public class StartingWindowController {
 	private Label textResultLbl;
 	@FXML
 	private Label resultLbl;
+	private ToggleButton toggled;
+	private ToggleButton prevToggled;
+	private boolean alreadyToggled = false;
 
 	@FXML
 	void highestPriceBtnPressed(ActionEvent event) {
@@ -63,6 +67,26 @@ public class StartingWindowController {
 
 	@FXML
 	void threeGreatestGrowthBtnPressed(ActionEvent event) {
+
+	}
+
+	@FXML
+	void togglePressed(ActionEvent event) {
+		
+		toggled = (ToggleButton) event.getSource();
+		if (alreadyToggled) {
+			for (Node node : togglesHBox.getChildren()) {
+
+				if (node == prevToggled) {
+					prevToggled.setSelected(false);
+				}
+
+			}
+			prevToggled = toggled;
+		} else {
+			alreadyToggled = true;
+			prevToggled = toggled;
+		}
 
 	}
 

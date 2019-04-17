@@ -40,14 +40,14 @@
             </HBox>
             <HBox fx:id="togglesHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <ToggleButton fx:id="US30Toggle" mnemonicParsing="false" styleClass="toggle" text="#US30" />
-                  <ToggleButton fx:id="USSPX500Toggle" mnemonicParsing="false" styleClass="toggle" text="#USSPX500" />
-                  <ToggleButton fx:id="WTIToggle" mnemonicParsing="false" styleClass="toggle" text="#WTI" />
-                  <ToggleButton fx:id="BTCUSDToggle" mnemonicParsing="false" styleClass="toggle" text="BTCUSD" />
-                  <ToggleButton fx:id="EURUSDToggle" mnemonicParsing="false" styleClass="toggle" text="EURUSD" />
-                  <ToggleButton fx:id="GBPCADToggle" mnemonicParsing="false" styleClass="toggle" text="GBPCAD" />
-                  <ToggleButton fx:id="USDJPYToggle" mnemonicParsing="false" styleClass="toggle" text="USDJPY" />
-                  <ToggleButton fx:id="XAUUSDToggle" mnemonicParsing="false" styleClass="toggle" text="XAUUSD" />
+                  <ToggleButton fx:id="US30Toggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#US30" />
+                  <ToggleButton fx:id="USSPX500Toggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#USSPX500" />
+                  <ToggleButton fx:id="WTIToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#WTI" />
+                  <ToggleButton fx:id="BTCUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="BTCUSD" />
+                  <ToggleButton fx:id="EURUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="EURUSD" />
+                  <ToggleButton fx:id="GBPCADToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="GBPCAD" />
+                  <ToggleButton fx:id="USDJPYToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="USDJPY" />
+                  <ToggleButton fx:id="XAUUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="XAUUSD" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
