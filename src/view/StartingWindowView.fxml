@@ -23,13 +23,13 @@
                   <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="160.0" spacing="20.0">
                      <children>
                         <Label styleClass="subtitle" text="Initial date" />
-                        <TextField fx:id="initialDateTextField" promptText="m/d/yyyy hh:m" />
+                        <TextField fx:id="initialDateTextField" promptText="d/m/yyyy hh:m" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="160.0" spacing="20.0">
                      <children>
                         <Label styleClass="subtitle" text="Final date" />
-                        <TextField fx:id="finalDateTextField" promptText="m/d/yyyy hh:m" />
+                        <TextField fx:id="finalDateTextField" promptText="d/m/yyyy hh:m" />
                      </children>
                   </VBox>
                   <Label prefHeight="21.0" prefWidth="143.0" styleClass="subtitle" text="Insert the date range" />

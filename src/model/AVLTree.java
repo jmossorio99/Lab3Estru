@@ -38,21 +38,21 @@ public class AVLTree<T extends Comparable<T>> {
 
 	}
 
-	public void insert(T data) {
+	public void insert(T data, T date, T name) {
 
-		root = insert(root, data);
+		root = insert(root, data, date, name);
 
 	}
 
-	private AVLNode<T> insert(AVLNode<T> node, T data) {
+	private AVLNode<T> insert(AVLNode<T> node, T data, T date, T name) {
 
 		if (node == null) {
-			return new AVLNode<T>(data);
+			return new AVLNode<T>(data, date, name);
 		} else {
 			if (node.getData().compareTo(data) > 0) {
-				node.setLeft(insert(node.getLeft(), data));
+				node.setLeft(insert(node.getLeft(), data, date, name));
 			} else {
-				node.setRight(insert(node.getRight(), data));
+				node.setRight(insert(node.getRight(), data, date, name));
 			}
 			node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
 			int balanceFactor = balanceFactor(node);
@@ -106,6 +106,8 @@ public class AVLTree<T extends Comparable<T>> {
 			} else {
 				AVLNode<T> temp = minValueNode(root.getRight());
 				root.setData(temp.getData());
+				root.setDate(temp.getDate());
+				root.setName(temp.getName());
 				root.setRight(delete(root.getRight(), temp.getData()));
 			}
 

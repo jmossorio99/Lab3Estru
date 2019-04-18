@@ -104,6 +104,8 @@ public class RBTree<T extends Comparable<T>> {
 		}
 		if (y != node) {
 			node.setData(y.getData());
+			node.setDate(y.getDate());
+			node.setName(y.getName());
 		}
 		if (y.getColor() == BLACK) {
 			deleteFixUp(x);

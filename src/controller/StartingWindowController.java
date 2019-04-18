@@ -2,6 +2,8 @@ package controller;
 
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
+import model.AVLTree;
+import model.LimitReader;
+import model.RBTree;
 
 public class StartingWindowController {
 
@@ -45,10 +50,56 @@ public class StartingWindowController {
 	@FXML
 	void highestPriceBtnPressed(ActionEvent event) {
 
+		String num = "";
+		String resultText = "";
+		if (verifySelections()) {
+
+			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
+					toggled.getText() + " prices.txt");
+			if (toggled.getText().contains("#")) {
+				AVLTree<String> avl = reader.getAlvOnLimit();
+				num = avl.getMax();
+				resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+			} else {
+				RBTree<String> rbt = reader.getRbOnLimit();
+				num = rbt.getMaxValue();
+				resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+			}
+			textResultLbl.setText(resultText);
+			resultLbl.setText(num);
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the date format and the market selection", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
 	}
 
 	@FXML
 	void lowestPriceBtnPressed(ActionEvent event) {
+
+		String num = "";
+		String resultText = "";
+		if (verifySelections()) {
+
+			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
+					toggled.getText() + " prices.txt");
+			if (toggled.getText().contains("#")) {
+				AVLTree<String> avl = reader.getAlvOnLimit();
+				num = avl.getMin();
+				resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+			} else {
+				RBTree<String> rbt = reader.getRbOnLimit();
+				num = rbt.getMinValue();
+				resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+			}
+			textResultLbl.setText(resultText);
+			resultLbl.setText(num);
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the date format and the market selection", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 
 	}
 
@@ -70,11 +121,6 @@ public class StartingWindowController {
 	@FXML
 	void threeGreatestGrowthBtnPressed(ActionEvent event) {
 
-	}
-	
-	//preview del metodo------
-	public void fillTreeWithIntervals(String inf,String sup) {
-		
 	}
 
 	@FXML

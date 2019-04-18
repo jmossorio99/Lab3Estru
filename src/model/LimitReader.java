@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class LimitReader{
+public class LimitReader {
 
 	private String limitSup;
 	private String limitInf;
@@ -22,20 +22,20 @@ public class LimitReader{
 	private int minuteLimitSup;
 	private int minuteLimitInf;
 	private String fileName;
-	
-	public LimitReader(String limitSup,String limitInf,String fileName) {
-		this.limitSup=limitSup;
-		this.limitInf=limitInf;
-		this.fileName=fileName;
-		
-		String [] tempSup=limitSup.split(" ");
-		String [] dmySup=tempSup[0].split("/");
-		String [] hmSup = tempSup[1].split(":");
-		
-		String [] tempInf=limitInf.split(" ");
-		String [] dmyInf=tempInf[0].split("/");
-		String [] hmInf = tempInf[1].split(":");
-		
+
+	public LimitReader(String limitSup, String limitInf, String fileName) {
+		this.limitSup = limitSup;
+		this.limitInf = limitInf;
+		this.fileName = fileName;
+
+		String[] tempSup = limitSup.split(" ");
+		String[] dmySup = tempSup[0].split("/");
+		String[] hmSup = tempSup[1].split(":");
+
+		String[] tempInf = limitInf.split(" ");
+		String[] dmyInf = tempInf[0].split("/");
+		String[] hmInf = tempInf[1].split(":");
+
 		yearLimitSup = Integer.parseInt(dmySup[2]);
 		yearLimitInf = Integer.parseInt(dmyInf[2]);
 		monthLimitSup = Integer.parseInt(dmySup[1]);
@@ -47,101 +47,92 @@ public class LimitReader{
 		minuteLimitSup = Integer.parseInt(hmSup[1]);
 		minuteLimitInf = Integer.parseInt(hmInf[1]);
 	}
-	
-	public AVLTree getAlvOnLimit(){
-		
-		AVLTree avl = new AVLTree();
-		
+
+	public AVLTree<String> getAlvOnLimit() {
+
+		AVLTree<String> avl = new AVLTree<String>();
 		File file = new File(fileName);
-		
-		String fileName = file.getName();
-		  
-		  if(fileName.contains(".txt")) {
-			  
-			  try {
-				
-				  
-				  FileInputStream fis = new FileInputStream(file);
-				  
-				  BufferedReader bf = new BufferedReader( new InputStreamReader(fis));
-				  boolean firstFound=false;
-				  boolean stop=false;
-				  
-				  while(!firstFound || !stop) {
-					  
-					  String line = bf.readLine();
-					  String [] firstSplit = line.split(",");
-					  String date=firstSplit[1].substring(1);
-					  
-					  if(isOnTheLimit(date)) {
-						  firstFound=true;
-						  
-						  // hacer lo que quiera hacer con el aki (esta en los limites)
-						  
-					  }else {
-						
-						  if(firstFound==true) {
-							  stop=true;
-						  }
-						  
-					  }
-					  
-				  }
-				 bf.close();
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+		try {
+
+			FileInputStream fis = new FileInputStream(file);
+			BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
+			boolean firstFound = false;
+			boolean stop = false;
+
+			while (!firstFound || !stop) {
+
+				String line = bf.readLine();
+				String[] firstSplit = line.split(",");
+				String date = firstSplit[1].substring(1);
+
+				if (isOnTheLimit(date)) {
+					System.out.println(line);
+					firstFound = true;
+					String price = firstSplit[2].substring(1);
+					avl.insert(price, date, fileName);
+
+				} else {
+
+					if (firstFound == true) {
+						stop = true;
+					}
+
+				}
+
 			}
-		  }
-		
-		  
-		  return avl;
+			bf.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return avl;
 	}
-	
-	public RBTree getRbOnLimit() {
-		RBTTree rbt = new RBTree();
-		
-        File file = new File(fileName);
-		
+
+	public RBTree<String> getRbOnLimit() {
+		RBTree<String> rbt = new RBTree<String>();
+
+		File file = new File(fileName);
+
 		String fileName = file.getName();
-		  
-		  if(fileName.contains(".txt")) {
-			  
-			  try {
-				
-				  
-				  FileInputStream fis = new FileInputStream(file);
-				  
-				  BufferedReader bf = new BufferedReader( new InputStreamReader(fis));
-				  boolean firstFound=false;
-				  boolean stop=false;
-				  
-				  while(!firstFound || !stop) {
-					  
-					  String line = bf.readLine();
-					  String [] firstSplit = line.split(",");
-					  String date=firstSplit[1].substring(1);
-					  
-					  if(isOnTheLimit(date)) {
-						  firstFound=true;
-						  
-						  // hacer lo que quiera hacer con el aki (esta en los limites)
-						  
-					  }else {
-						
-						  if(firstFound==true) {
-							  stop=true;
-						  }
-						  
-					  }
-					  
-				  }
-				 bf.close();
-				
+
+		if (fileName.contains(".txt")) {
+
+			try {
+
+				FileInputStream fis = new FileInputStream(file);
+
+				BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
+				boolean firstFound = false;
+				boolean stop = false;
+
+				while (!firstFound || !stop) {
+
+					String line = bf.readLine();
+					String[] firstSplit = line.split(",");
+					String date = firstSplit[1].substring(1);
+
+					if (isOnTheLimit(date)) {
+						firstFound = true;
+						String price = firstSplit[2].substring(1);
+						RBNode<String> node = new RBNode<String>(price, date, fileName);
+						rbt.insert(node);
+					} else {
+
+						if (firstFound == true) {
+							stop = true;
+						}
+
+					}
+
+				}
+				bf.close();
+
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -149,63 +140,58 @@ public class LimitReader{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		  }
-		
+		}
+
 		return rbt;
 	}
-	
+
 	public boolean isOnTheLimit(String date) {
-		boolean onTheLimit=false;
-		
-		String [] temp=date.split(" ");
-		
-		String [] dmy=temp[0].split("/");
-		String [] hm=temp[1].split(":");
-		
+		boolean onTheLimit = false;
+
+		String[] temp = date.split(" ");
+
+		String[] dmy = temp[0].split("/");
+		String[] hm = temp[1].split(":");
+
 		int day = Integer.parseInt(dmy[0]);
 		int month = Integer.parseInt(dmy[1]);
 		int year = Integer.parseInt(dmy[2]);
 		int hour = Integer.parseInt(hm[0]);
 		int minute = Integer.parseInt(hm[1]);
-		
-		
-		//año
-		if(year>yearLimitInf && year<yearLimitSup) {
-			onTheLimit=true;
-		}
-		else if(year>=yearLimitInf && year<=yearLimitSup) {
-			
-			//mes
-			if(month>monthLimitInf && month<monthLimitSup) {
-				onTheLimit=true;
-			}
-			else if(month>=monthLimitInf && month<=monthLimitSup) {
-				
-				//dia
-				if(day>dayLimitInf && day<dayLimitSup) {
-					onTheLimit=true;
-				}
-				else if(day>=dayLimitInf && day<=dayLimitSup) {
-					
-					//hora
-					if(hour>hourLimitInf && hour<hourLimitSup) {
-						onTheLimit=true;
-					}
-					else if(hour>=hourLimitInf && hour<=hourLimitSup) {
-						
-						//minutos
-						if(minute>minuteLimitInf && minute<minuteLimitSup) {
-							onTheLimit=true;
+
+		// año
+		if (year > yearLimitInf && year < yearLimitSup) {
+			onTheLimit = true;
+		} else if (year >= yearLimitInf && year <= yearLimitSup) {
+
+			// mes
+			if (month > monthLimitInf && month < monthLimitSup) {
+				onTheLimit = true;
+			} else if (month >= monthLimitInf && month <= monthLimitSup) {
+
+				// dia
+				if (day > dayLimitInf && day < dayLimitSup) {
+					onTheLimit = true;
+				} else if (day >= dayLimitInf && day <= dayLimitSup) {
+
+					// hora
+					if (hour > hourLimitInf && hour < hourLimitSup) {
+						onTheLimit = true;
+					} else if (hour >= hourLimitInf && hour <= hourLimitSup) {
+
+						// minutos
+						if (minute >= minuteLimitInf && minute <= minuteLimitSup) {
+							onTheLimit = true;
 						}
-						
+
 					}
-					
+
 				}
-				
+
 			}
 		}
-		
+
 		return onTheLimit;
 	}
-	
+
 }
