@@ -17,6 +17,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.AVLTree;
+import model.HighestGrowthFinder;
 import model.LimitReader;
 import model.RBTree;
 
@@ -155,6 +156,14 @@ public class StartingWindowController {
 
 	@FXML
 	void highestGrowthMonthBtnPressed(ActionEvent event) {
+
+		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+		try {
+			textResultLbl.setText("The month with the highest growth for the market " + toggled.getText() + " is: ");
+			resultLbl.setText(hgf.findHighestGrowthMonth());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
