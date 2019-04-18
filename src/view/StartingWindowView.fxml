@@ -60,7 +60,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" text="Highest growth year" />
+                  <Button mnemonicParsing="false" onAction="#highestGrowthYearBtnPressed" text="Highest growth year" />
                   <Button mnemonicParsing="false" onAction="#showGraphBtnPressed" text="Show graph" />
                   <Button mnemonicParsing="false" onAction="#stockAboveValueBtnPressed" text="wait what" />
                   <Button mnemonicParsing="false" onAction="#threeGreatestGrowthBtnPressed" text="Three with the greatest growth" />
