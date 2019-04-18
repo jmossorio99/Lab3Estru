@@ -1,0 +1,54 @@
+@font-face{
+	font-family: openSans;
+	src: url(fonts/OpenSans-Regular.ttf);
+}
+
+.title{
+	-fx-font-style: italic;
+	-fx-font-family: openSans;
+	-fx-font-size: 25.0px;
+	-fx-font-weight: bold;
+}
+
+.subtitle{
+	-fx-font-family: openSans;
+	-fx-font-size: 15.0px;
+}
+
+.result{
+	-fx-font-family: openSans;
+	-fx-font-size: 25.0px;
+	-fx-font-weight: bold;
+}
+
+.toggle{
+	-fx-font-family: openSans;
+	-fx-font-size: 13.0px;
+}
+
+.button{
+	-fx-font-family: openSans;
+	-fx-font-size: 13.0px;
+	-fx-background-color:
+            linear-gradient(#f0ff35,#a9ff00),
+            radial-gradient(center 50.0% -40.0%, radius 200.0%, #b8ee36 45.0%, #80c800 50.0%);
+    -fx-background-radius: 6.0,5.0;
+    -fx-background-insets: 0.0,1.0;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.4), 5.0, 0.0, 0.0, 1.0);
+   -fx-text-fill: #395306;
+}
+
+.button:hover{
+	-fx-font-family: openSans;
+	-fx-font-size: 13.0px;
+	-fx-font-weight: bold;
+	-fx-background-color:
+            linear-gradient(#a9ff00,#f0ff35),
+            radial-gradient(center 50.0% -40.0%, radius 200.0%, #b8ee36 45.0%, #80c800 50.0%);
+    -fx-background-radius: 6.0,5.0;
+    -fx-background-insets: 0.0,1.0;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.4), 5.0, 0.0, 0.0, 1.0);
+   -fx-text-fill: white;
+}

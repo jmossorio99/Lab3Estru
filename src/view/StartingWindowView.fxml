@@ -9,15 +9,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingWindowController">
    <children>
-      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="800.0">
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="900.0">
          <children>
-            <Label styleClass="title" text="Stock and currency market tool" />
+            <Label styleClass="title" stylesheets="@style.css" text="Stock and currency market tool" />
          </children>
       </HBox>
-      <VBox layoutY="89.0" prefHeight="300.0" prefWidth="800.0">
+      <VBox layoutY="89.0" prefHeight="300.0" prefWidth="900.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
@@ -33,7 +32,7 @@
                         <TextField fx:id="finalDateTextField" promptText="m/d/yyyy hh:m" />
                      </children>
                   </VBox>
-                  <Label prefHeight="17.0" prefWidth="129.0" styleClass="subtitle" text="Insert the date range" />
+                  <Label prefHeight="21.0" prefWidth="143.0" styleClass="subtitle" text="Insert the date range" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -41,14 +40,14 @@
             </HBox>
             <HBox fx:id="togglesHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <ToggleButton fx:id="US30Toggle" mnemonicParsing="false" styleClass="toggle" text="#US30" />
-                  <ToggleButton fx:id="USSPX500Toggle" mnemonicParsing="false" styleClass="toggle" text="#USSPX500" />
-                  <ToggleButton fx:id="WTIToggle" mnemonicParsing="false" styleClass="toggle" text="#WTI" />
-                  <ToggleButton fx:id="BTCUSDToggle" mnemonicParsing="false" styleClass="toggle" text="BTCUSD" />
-                  <ToggleButton fx:id="EURUSDToggle" mnemonicParsing="false" styleClass="toggle" text="EURUSD" />
-                  <ToggleButton fx:id="GBPCADToggle" mnemonicParsing="false" styleClass="toggle" text="GBPCAD" />
-                  <ToggleButton fx:id="USDJPYToggle" mnemonicParsing="false" styleClass="toggle" text="USDJPY" />
-                  <ToggleButton fx:id="XAUUSDToggle" mnemonicParsing="false" styleClass="toggle" text="XAUUSD" />
+                  <ToggleButton fx:id="US30Toggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#US30" />
+                  <ToggleButton fx:id="USSPX500Toggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#USSPX500" />
+                  <ToggleButton fx:id="WTIToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="#WTI" />
+                  <ToggleButton fx:id="BTCUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="BTCUSD" />
+                  <ToggleButton fx:id="EURUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="EURUSD" />
+                  <ToggleButton fx:id="GBPCADToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="GBPCAD" />
+                  <ToggleButton fx:id="USDJPYToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="USDJPY" />
+                  <ToggleButton fx:id="XAUUSDToggle" mnemonicParsing="false" onAction="#togglePressed" styleClass="toggle" text="XAUUSD" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
@@ -63,7 +62,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="100.0" layoutY="432.0" prefHeight="100.0" prefWidth="600.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="150.0" layoutY="431.0" prefHeight="100.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label fx:id="textResultLbl" styleClass="result" />
             <Label fx:id="resultLbl" styleClass="result" />
