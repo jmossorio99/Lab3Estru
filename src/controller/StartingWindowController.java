@@ -65,5 +65,10 @@ public class StartingWindowController {
 	void threeGreatestGrowthBtnPressed(ActionEvent event) {
 
 	}
+	
+	//preview del metodo------
+	public void fillTreeWithIntervals(String inf,String sup) {
+		
+	}
 
 }
