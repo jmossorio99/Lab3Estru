@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.Date;
 
 public class LimitReader {
 
@@ -63,21 +65,24 @@ public class LimitReader {
 			while (!firstFound || !stop) {
 
 				String line = bf.readLine();
-				String[] firstSplit = line.split(",");
-				String date = firstSplit[1].substring(1);
+				if (line != null) {
+					String[] firstSplit = line.split(",");
+					String date = firstSplit[1].substring(1);
 
-				if (isOnTheLimit(date)) {
-					System.out.println(line);
-					firstFound = true;
-					String price = firstSplit[2].substring(1);
-					avl.insert(price, date, fileName);
+					if (isOnTheLimit(date)) {
+						firstFound = true;
+						String price = firstSplit[2].substring(1);
+						avl.insert(price, date, fileName);
 
-				} else {
+					} else {
 
-					if (firstFound == true) {
-						stop = true;
+						if (firstFound == true) {
+							stop = true;
+						}
+
 					}
-
+				} else {
+					break;
 				}
 
 			}
@@ -114,20 +119,24 @@ public class LimitReader {
 				while (!firstFound || !stop) {
 
 					String line = bf.readLine();
-					String[] firstSplit = line.split(",");
-					String date = firstSplit[1].substring(1);
+					if (line != null) {
+						String[] firstSplit = line.split(",");
+						String date = firstSplit[1].substring(1);
 
-					if (isOnTheLimit(date)) {
-						firstFound = true;
-						String price = firstSplit[2].substring(1);
-						RBNode<String> node = new RBNode<String>(price, date, fileName);
-						rbt.insert(node);
-					} else {
+						if (isOnTheLimit(date)) {
+							firstFound = true;
+							String price = firstSplit[2].substring(1);
+							RBNode<String> node = new RBNode<String>(price, date, fileName);
+							rbt.insert(node);
+						} else {
 
-						if (firstFound == true) {
-							stop = true;
+							if (firstFound == true) {
+								stop = true;
+							}
 						}
 
+					} else {
+						break;
 					}
 
 				}
@@ -145,6 +154,7 @@ public class LimitReader {
 		return rbt;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean isOnTheLimit(String date) {
 		boolean onTheLimit = false;
 
@@ -159,36 +169,13 @@ public class LimitReader {
 		int hour = Integer.parseInt(hm[0]);
 		int minute = Integer.parseInt(hm[1]);
 
-		// año
-		if (year > yearLimitInf && year < yearLimitSup) {
+		Date start = new Date(yearLimitSup, monthLimitSup, dayLimitSup, hourLimitSup, minuteLimitSup);
+		Date current = new Date(year, month, day, hour, minute);
+		Date end = new Date(yearLimitInf, monthLimitInf, dayLimitInf, hourLimitInf, minuteLimitInf);
+
+		if (start.compareTo(current) == 0 || end.compareTo(current) == 0
+				|| (start.after(current) && end.before(current))) {
 			onTheLimit = true;
-		} else if (year >= yearLimitInf && year <= yearLimitSup) {
-
-			// mes
-			if (month > monthLimitInf && month < monthLimitSup) {
-				onTheLimit = true;
-			} else if (month >= monthLimitInf && month <= monthLimitSup) {
-
-				// dia
-				if (day > dayLimitInf && day < dayLimitSup) {
-					onTheLimit = true;
-				} else if (day >= dayLimitInf && day <= dayLimitSup) {
-
-					// hora
-					if (hour > hourLimitInf && hour < hourLimitSup) {
-						onTheLimit = true;
-					} else if (hour >= hourLimitInf && hour <= hourLimitSup) {
-
-						// minutos
-						if (minute >= minuteLimitInf && minute <= minuteLimitSup) {
-							onTheLimit = true;
-						}
-
-					}
-
-				}
-
-			}
 		}
 
 		return onTheLimit;
