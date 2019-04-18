@@ -1,16 +1,21 @@
 package controller;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import model.AVLTree;
 import model.LimitReader;
 import model.RBTree;
@@ -106,6 +111,20 @@ public class StartingWindowController {
 	@FXML
 	void showGraphBtnPressed(ActionEvent event) {
 
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/graphWindow.fxml"));
+		Parent root = null;
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+		window.setResizable(false);
+		window.setScene(scene);
+		window.show();
+		
 	}
 
 	@FXML
