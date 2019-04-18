@@ -62,13 +62,23 @@ public class StartingWindowController {
 			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
-				AVLTree<String> avl = reader.getAlvOnLimit();
-				num = avl.getMax();
-				resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+				AVLTree<String> avl;
+				try {
+					avl = reader.getAlvOnLimit();
+					num = avl.getMax();
+					resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else {
-				RBTree<String> rbt = reader.getRbOnLimit();
-				num = rbt.getMaxValue();
-				resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+				RBTree<String> rbt;
+				try {
+					rbt = reader.getRbOnLimit();
+					num = rbt.getMaxValue();
+					resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			textResultLbl.setText(resultText);
 			resultLbl.setText(num);
@@ -90,13 +100,23 @@ public class StartingWindowController {
 			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
-				AVLTree<String> avl = reader.getAlvOnLimit();
-				num = avl.getMin();
-				resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+				AVLTree<String> avl;
+				try {
+					avl = reader.getAlvOnLimit();
+					num = avl.getMin();
+					resultText = "The highest price of the stock market " + toggled.getText() + " is: ";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else {
-				RBTree<String> rbt = reader.getRbOnLimit();
-				num = rbt.getMinValue();
-				resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+				RBTree<String> rbt;
+				try {
+					rbt = reader.getRbOnLimit();
+					num = rbt.getMinValue();
+					resultText = "The highest price of the currency market " + toggled.getText() + " is: ";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			textResultLbl.setText(resultText);
 			resultLbl.setText(num);
@@ -112,7 +132,7 @@ public class StartingWindowController {
 	void showGraphBtnPressed(ActionEvent event) {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/graphWindow.fxml"));
+		loader.setLocation(getClass().getResource("/view/GraphWindowView.fxml"));
 		Parent root = null;
 		try {
 			root = loader.load();
@@ -120,15 +140,21 @@ public class StartingWindowController {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
-		Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+		Stage window = new Stage();
 		window.setResizable(false);
 		window.setScene(scene);
+		window.setTitle("Graph View");
 		window.show();
-		
+
 	}
 
 	@FXML
-	void singleHighestGrowthBtnPressed(ActionEvent event) {
+	void highestGrowthDayBtnPressed(ActionEvent event) {
+
+	}
+
+	@FXML
+	void highestGrowthMonthBtnPressed(ActionEvent event) {
 
 	}
 

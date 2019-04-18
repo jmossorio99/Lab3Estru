@@ -14,14 +14,15 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage window) throws Exception {
-		
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/StartingWindowView.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 		window.setScene(scene);
+		window.setTitle("Stock and currency market tool");
 		window.show();
-		
+
 	}
 
 }

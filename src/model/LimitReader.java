@@ -50,14 +50,56 @@ public class LimitReader {
 		minuteLimitInf = Integer.parseInt(hmInf[1]);
 	}
 
-	public AVLTree<String> getAlvOnLimit() {
+	public AVLTree<String> getAlvOnLimit() throws IOException {
 
 		AVLTree<String> avl = new AVLTree<String>();
 		File file = new File(fileName);
 
-		try {
+		FileInputStream fis = new FileInputStream(file);
+		BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
+		boolean firstFound = false;
+		boolean stop = false;
+
+		while (!firstFound || !stop) {
+
+			String line = bf.readLine();
+			if (line != null) {
+				String[] firstSplit = line.split(",");
+				String date = firstSplit[1].substring(1);
+
+				if (isOnTheLimit(date)) {
+					firstFound = true;
+					String price = firstSplit[2].substring(1);
+					avl.insert(price, date, fileName);
+
+				} else {
+
+					if (firstFound == true) {
+						stop = true;
+					}
+
+				}
+			} else {
+				break;
+			}
+
+		}
+		bf.close();
+
+		return avl;
+	}
+
+	public RBTree<String> getRbOnLimit() throws IOException {
+		RBTree<String> rbt = new RBTree<String>();
+
+		File file = new File(fileName);
+
+		String fileName = file.getName();
+
+		if (fileName.contains(".txt")) {
 
 			FileInputStream fis = new FileInputStream(file);
+
 			BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
 			boolean firstFound = false;
 			boolean stop = false;
@@ -72,15 +114,15 @@ public class LimitReader {
 					if (isOnTheLimit(date)) {
 						firstFound = true;
 						String price = firstSplit[2].substring(1);
-						avl.insert(price, date, fileName);
-
+						RBNode<String> node = new RBNode<String>(price, date, fileName);
+						rbt.insert(node);
 					} else {
 
 						if (firstFound == true) {
 							stop = true;
 						}
-
 					}
+
 				} else {
 					break;
 				}
@@ -88,67 +130,6 @@ public class LimitReader {
 			}
 			bf.close();
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return avl;
-	}
-
-	public RBTree<String> getRbOnLimit() {
-		RBTree<String> rbt = new RBTree<String>();
-
-		File file = new File(fileName);
-
-		String fileName = file.getName();
-
-		if (fileName.contains(".txt")) {
-
-			try {
-
-				FileInputStream fis = new FileInputStream(file);
-
-				BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
-				boolean firstFound = false;
-				boolean stop = false;
-
-				while (!firstFound || !stop) {
-
-					String line = bf.readLine();
-					if (line != null) {
-						String[] firstSplit = line.split(",");
-						String date = firstSplit[1].substring(1);
-
-						if (isOnTheLimit(date)) {
-							firstFound = true;
-							String price = firstSplit[2].substring(1);
-							RBNode<String> node = new RBNode<String>(price, date, fileName);
-							rbt.insert(node);
-						} else {
-
-							if (firstFound == true) {
-								stop = true;
-							}
-						}
-
-					} else {
-						break;
-					}
-
-				}
-				bf.close();
-
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 
 		return rbt;
