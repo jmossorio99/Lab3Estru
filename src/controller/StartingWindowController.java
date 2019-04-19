@@ -132,20 +132,21 @@ public class StartingWindowController {
 	@FXML
 	void showGraphBtnPressed(ActionEvent event) {
 
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/GraphWindowView.fxml"));
-		Parent root = null;
 		try {
-			root = loader.load();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/GraphWindowView.fxml"));
+
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			Stage window = new Stage();
+			window.setResizable(false);
+			window.setScene(scene);
+			window.setTitle("Graph View");
+			window.show();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(root);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setScene(scene);
-		window.setTitle("Graph View");
-		window.show();
 
 	}
 
