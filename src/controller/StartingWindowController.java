@@ -54,6 +54,8 @@ public class StartingWindowController {
 	private boolean alreadyToggled = false;
 	AVLTree<String> avl;
 	RBTree<String> rbt;
+	LimitReader reader;
+	HighestGrowthFinder hgf;
 
 	@FXML
 	void highestPriceBtnPressed(ActionEvent event) {
@@ -62,7 +64,7 @@ public class StartingWindowController {
 		String resultText = "";
 		if (verifySelections()) {
 
-			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
+			reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
 				try {
@@ -98,7 +100,7 @@ public class StartingWindowController {
 		String resultText = "";
 		if (verifySelections()) {
 
-			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
+			reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
 				try {
@@ -151,7 +153,7 @@ public class StartingWindowController {
 	@FXML
 	void highestGrowthYearBtnPressed(ActionEvent event) {
 
-		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+		hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
 		try {
 			textResultLbl.setText("The year with the highest growth for the market " + toggled.getText() + " is: ");
 			resultLbl.setText(hgf.findHighestGrowthYear());
