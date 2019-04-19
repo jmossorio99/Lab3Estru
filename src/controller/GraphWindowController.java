@@ -8,11 +8,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 
 public class GraphWindowController implements Initializable {
 
@@ -21,6 +25,25 @@ public class GraphWindowController implements Initializable {
 
 	@FXML
 	private NumberAxis y;
+	
+	 @FXML
+    private ListView<?> listView;
+
+	 @FXML
+	 private Button addButton;
+
+	 @FXML
+	 private Button removeButton;
+
+	    @FXML
+	    void addButtonClicked(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void removeButtonClicked(ActionEvent event) {
+
+	    }
 
 	@FXML
 	private LineChart<Number, Number> lineChart;
@@ -61,7 +84,7 @@ public class GraphWindowController implements Initializable {
 	public XYChart.Series addSeries(String fileName) {
 		
 		XYChart.Series series = new XYChart.Series();
-		series.setName("arhivo #US30");
+		series.setName(fileName);
 
 		File file = new File(fileName);
 		FileInputStream fis;
