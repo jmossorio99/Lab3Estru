@@ -5,74 +5,91 @@ public class RBTree<T extends Comparable<T>> {
 	public final static int RED = 0;
 	public final static int BLACK = 1;
 
-	private RBNode<T> root = null;
+	private RBNode<T> nil = new RBNode<T>();
+	private RBNode<T> root = nil;
 
-	public void insert(RBNode<T> node) {
+	public RBTree() {
+
+		root.setLeft(nil);
+		root.setRight(nil);
+		root.setParent(nil);
+
+	}
+
+	public void insert(RBNode<T> z) {
 
 		RBNode<T> x = root;
-		RBNode<T> y = null;
-		while (x != null) {
+		RBNode<T> y = nil;
+
+		while (!isNil(x)) {
+
 			y = x;
-			if (node.compareTo(x) < 0) {
+			if (z.getData().compareTo(x.getData()) < 0) {
 				x = x.getLeft();
 			} else {
 				x = x.getRight();
 			}
+
 		}
-		node.setParent(y);
-		if (y == null) {
-			root = node;
+		z.setParent(y);
+		if (isNil(y)) {
+			root = z;
 		} else {
-			if (node.compareTo(y) < 0) {
-				y.setLeft(node);
+			if (z.getData().compareTo(y.getData()) < 0) {
+				y.setLeft(z);
 			} else {
-				y.setRight(node);
+				y.setRight(z);
 			}
 		}
-		node.setLeft(null);
-		node.setRight(null);
-		node.setColor(RED);
-		fixUp(node);
-
+		z.setLeft(nil);
+		z.setRight(nil);
+		z.setColor(RED);
+		fixUp(z);
 	}
 
-	private void fixUp(RBNode<T> node) {
+	private void fixUp(RBNode<T> z) {
 
-		RBNode<T> current = node;
-		while (current.getParent().getColor() == RED) {
-			if (current.getParent() == current.getParent().getParent().getLeft()) {
-				RBNode<T> y = current.getParent().getParent().getRight();
+		RBNode<T> y = nil;
+
+		while (z.getParent().getColor() == RED) {
+
+			if (z.getParent() == z.getParent().getParent().getLeft()) {
+				y = z.getParent().getParent().getRight();
 				if (y.getColor() == RED) {
-					current.getParent().setColor(BLACK);
+					z.getParent().setColor(BLACK);
 					y.setColor(BLACK);
-					current.getParent().getParent().setColor(RED);
-					current = current.getParent().getParent();
+					z.getParent().getParent().setColor(RED);
+					z = z.getParent().getParent();
+				} else if (z == z.getParent().getRight()) {
+
+					z = z.getParent();
+					leftRotate(z);
 				} else {
-					if (current == current.getParent().getRight()) {
-						current = current.getParent();
-						leftRotate(current);
-					}
-					current.getParent().setColor(BLACK);
-					current.getParent().getParent().setColor(RED);
-					rightRotate(current.getParent().getParent());
+					z.getParent().setColor(BLACK);
+					z.getParent().getParent().setColor(RED);
+					rightRotate(z.getParent().getParent());
 				}
+
 			} else {
-				RBNode<T> y = current.getParent().getParent().getLeft();
+
+				y = z.getParent().getParent().getLeft();
 				if (y.getColor() == RED) {
-					current.getParent().setColor(BLACK);
+					z.getParent().setColor(BLACK);
 					y.setColor(BLACK);
-					current.getParent().getParent().setColor(RED);
-					current = current.getParent().getParent();
+					z.getParent().getParent().setColor(RED);
+					z = z.getParent().getParent();
+				} else if (z == z.getParent().getLeft()) {
+
+					z = z.getParent();
+					rightRotate(z);
+
 				} else {
-					if (current == current.getParent().getLeft()) {
-						current = current.getParent();
-						rightRotate(current);
-					}
-					current.getParent().setColor(BLACK);
-					current.getParent().getParent().setColor(RED);
-					leftRotate(current.getParent().getParent());
+					z.getParent().setColor(BLACK);
+					z.getParent().getParent().setColor(RED);
+					leftRotate(z.getParent().getParent());
 				}
 			}
+
 		}
 		root.setColor(BLACK);
 
@@ -170,13 +187,59 @@ public class RBTree<T extends Comparable<T>> {
 
 	}
 
+	private void leftRotate(RBNode<T> x) {
+
+		RBNode<T> y = x.getRight();
+		x.setRight(y.getLeft());
+		if (!isNil(y.getLeft())) {
+			y.getLeft().setParent(x);
+		}
+		y.setParent(x.getParent());
+		if (isNil(x.getParent())) {
+			root = y;
+		} else if (x.getParent().getLeft() == x) {
+			x.getParent().setLeft(y);
+		} else {
+			x.getParent().setRight(y);
+		}
+		y.setLeft(x);
+		x.setParent(y);
+
+	}
+
+	private void rightRotate(RBNode<T> y) {
+
+		RBNode<T> x = y.getLeft();
+		y.setLeft(x.getRight());
+		if (!isNil(x.getRight())) {
+			x.getRight().setParent(y);
+		}
+		x.setParent(y.getParent());
+		if (isNil(y.getParent())) {
+			root = x;
+		} else if (y.getParent().getRight() == y) {
+			y.getParent().setRight(x);
+		} else {
+			y.getParent().setLeft(x);
+		}
+		x.setRight(y);
+		y.setParent(x);
+
+	}
+
+	private boolean isNil(RBNode<T> x) {
+
+		return x == nil;
+
+	}
+
 	public T getMinValue() {
 
 		RBNode<T> current = root;
-		if (current == null) {
+		if (isNil(current)) {
 			return null;
 		}
-		while (current.getLeft() != null) {
+		while (!isNil(current.getLeft())) {
 			current = current.getLeft();
 		}
 		return current.getData();
@@ -186,10 +249,10 @@ public class RBTree<T extends Comparable<T>> {
 	public T getMaxValue() {
 
 		RBNode<T> current = root;
-		if (current == null) {
+		if (isNil(current)) {
 			return null;
 		}
-		while (current.getRight() != null) {
+		while (!isNil(current.getRight())) {
 			current = current.getRight();
 		}
 		return current.getData();
@@ -199,10 +262,10 @@ public class RBTree<T extends Comparable<T>> {
 	public RBNode<T> getMinNode(RBNode<T> node) {
 
 		RBNode<T> current = node;
-		if (current == null) {
+		if (isNil(current)) {
 			return null;
 		}
-		while (current.getLeft() != null) {
+		while (!isNil(current.getLeft())) {
 			current = current.getLeft();
 		}
 		return current;
@@ -212,10 +275,10 @@ public class RBTree<T extends Comparable<T>> {
 	public RBNode<T> getMaxNode(RBNode<T> node) {
 
 		RBNode<T> current = node;
-		if (current == null) {
+		if (isNil(current)) {
 			return null;
 		}
-		while (current.getRight() != null) {
+		while (!isNil(current.getRight())) {
 			current = current.getRight();
 		}
 		return current;
@@ -236,66 +299,24 @@ public class RBTree<T extends Comparable<T>> {
 
 	}
 
-	private void leftRotate(RBNode<T> node) {
+	public RBNode<T> search(T key) {
 
-		RBNode<T> y = node.getRight();
-		node.setRight(y.getLeft());
-		y.getLeft().setParent(node);
-		y.setParent(node.getParent());
-		if (node.getParent() == null) {
-			root = y;
-		} else {
-			if (node == node.getParent().getLeft()) {
-				node.getParent().setLeft(y);
+		RBNode<T> current = root;
+		while (!isNil(current)) {
+
+			if (current.getData().equals(key)) {
+
+				return current;
+
+			} else if (current.getData().compareTo(key) < 0) {
+				current = current.getRight();
 			} else {
-				node.getParent().setRight(y);
+				current = current.getLeft();
 			}
-		}
-		y.setLeft(node);
-		node.setParent(y);
 
-	}
-
-	private void rightRotate(RBNode<T> node) {
-
-		RBNode<T> y = node.getLeft();
-		node.setLeft(y.getRight());
-		y.getRight().setParent(node);
-		y.setParent(node.getParent());
-		if (node.getParent() == null) {
-			root = y;
-		} else {
-			if (node == node.getParent().getLeft()) {
-				node.getParent().setLeft(y);
-			} else {
-				node.getParent().setRight(y);
-			}
 		}
-		y.setRight(node);
-		node.setParent(y);
+		return null;
 
-	}
-
-	public RBNode<T> searchNode(T data) {
-		if (root == null || root.getData().compareTo(data) == 0) {
-			return root;
-		}
-		if (root.getData().compareTo(data) < 0) {
-			return searchNodeRercursive(data, root.getLeft());
-		} else {
-			return searchNodeRercursive(data, root.getRight());
-		}
-	}
-
-	private RBNode<T> searchNodeRercursive(T data, RBNode<T> node) {
-		if (node == null || node.getData().compareTo(data) == 0) {
-			return node;
-		}
-		if (node.getData().compareTo(data) < 0) {
-			return searchNodeRercursive(data, node.getLeft());
-		} else {
-			return searchNodeRercursive(data, node.getRight());
-		}
 	}
 
 }

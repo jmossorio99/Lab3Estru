@@ -6,21 +6,24 @@ public class RBNode<T extends Comparable<T>> {
 	private T name;
 	private T data;
 	private int color = RBTree.BLACK;
-	private RBNode<T> left = null;
-	private RBNode<T> right = null;
-	private RBNode<T> parent = null;
+	private RBNode<T> left;
+	private RBNode<T> right;
+	private RBNode<T> parent;
 
-	public RBNode(T data, T date, T name, RBNode<T> left, RBNode<T> right, RBNode<T> parent) {
+	public RBNode(T data, T date, T name) {
+		this();
 		this.data = data;
 		this.date = date;
 		this.name = name;
-		this.left = left;
-		this.right = right;
-		this.parent = parent;
 	}
 
-	public RBNode(T data, T date, T name) {
-		this(date, date, name, null, null, null);
+	public RBNode() {
+
+		color = RBTree.BLACK;
+		parent = null;
+		left = null;
+		right = null;
+
 	}
 
 	public T getData() {
