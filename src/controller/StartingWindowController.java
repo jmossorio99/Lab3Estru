@@ -52,6 +52,8 @@ public class StartingWindowController {
 	private ToggleButton toggled;
 	private ToggleButton prevToggled;
 	private boolean alreadyToggled = false;
+	AVLTree<String> avl;
+	RBTree<String> rbt;
 
 	@FXML
 	void highestPriceBtnPressed(ActionEvent event) {
@@ -63,7 +65,6 @@ public class StartingWindowController {
 			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
-				AVLTree<String> avl;
 				try {
 					avl = reader.getAlvOnLimit();
 					num = avl.getMax();
@@ -72,7 +73,6 @@ public class StartingWindowController {
 					e.printStackTrace();
 				}
 			} else {
-				RBTree<String> rbt;
 				try {
 					rbt = reader.getRbOnLimit();
 					num = rbt.getMaxValue();
@@ -101,7 +101,6 @@ public class StartingWindowController {
 			LimitReader reader = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(),
 					toggled.getText() + " prices.txt");
 			if (toggled.getText().contains("#")) {
-				AVLTree<String> avl;
 				try {
 					avl = reader.getAlvOnLimit();
 					num = avl.getMin();
@@ -110,7 +109,6 @@ public class StartingWindowController {
 					e.printStackTrace();
 				}
 			} else {
-				RBTree<String> rbt;
 				try {
 					rbt = reader.getRbOnLimit();
 					num = rbt.getMinValue();
