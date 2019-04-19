@@ -1,7 +1,5 @@
 package view;
 
-import java.io.File;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,8 +23,6 @@ public class Main extends Application {
 		window.setTitle("Stock and currency market tool");
 		window.show();
 
-		File file = new File("#US30 prices.txt");
-		System.out.println(""+file.length());
 	}
 
 }

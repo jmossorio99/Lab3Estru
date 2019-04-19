@@ -151,7 +151,28 @@ public class StartingWindowController {
 	}
 
 	@FXML
+	void highestGrowthYearBtnPressed(ActionEvent event) {
+
+		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+		try {
+			textResultLbl.setText("The year with the highest growth for the market " + toggled.getText() + " is: ");
+			resultLbl.setText(hgf.findHighestGrowthYear());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@FXML
 	void highestGrowthDayBtnPressed(ActionEvent event) {
+
+		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+		try {
+			textResultLbl.setText("The day with the highest growth for the market " + toggled.getText() + " is: ");
+			resultLbl.setText(hgf.findHighestGrowthDay());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
