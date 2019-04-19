@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphWindowController">
    <children>
-      <LineChart fx:id="lineChart" layoutX="85.0" layoutY="66.0" prefHeight="258.0" prefWidth="430.0" title="lineChart">
+      <LineChart fx:id="lineChart" layoutX="18.0" layoutY="52.0" prefHeight="395.0" prefWidth="564.0" title="lineChart">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis lowerBound="2000.0" prefHeight="329.0" prefWidth="35.0" side="LEFT" upperBound="3000.0" />
         </yAxis>
       </LineChart>
-      <Label layoutX="263.0" layoutY="14.0" prefHeight="40.0" prefWidth="75.0" text="graph" textAlignment="CENTER">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

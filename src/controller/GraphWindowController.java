@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -18,31 +17,62 @@ import javafx.scene.chart.XYChart;
 public class GraphWindowController implements Initializable {
 
 	@FXML
-	private CategoryAxis x;
+	private NumberAxis x;
 
 	@FXML
 	private NumberAxis y;
 
 	@FXML
-	private LineChart<?, ?> lineChart;
+	private LineChart<Number, Number> lineChart;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		
+        lineChart.setTitle("Grafh");
+		
 
-		lineChart.setTitle("first try");
-
+	}
+	
+	public void grafhOneFile(String fileName) {
+		
+		XYChart.Series series = addSeries(fileName);
+		lineChart.getData().addAll(series);
+		
+	}
+	
+	public void grafhTwoFiles(String fileName1,String fileName2) {
+		
+		XYChart.Series series = addSeries(fileName1);
+		XYChart.Series series2 = addSeries(fileName2);
+		lineChart.getData().addAll(series,series2);
+		
+	}
+	
+	public void grafhThreeFiles(String fileName1,String fileName2,String fileName3) {
+		
+		XYChart.Series series = addSeries(fileName1);
+		XYChart.Series series2 = addSeries(fileName2);
+		XYChart.Series series3 = addSeries(fileName3);
+		lineChart.getData().addAll(series,series2,series3);
+		
+	}
+	
+	public XYChart.Series addSeries(String fileName) {
+		
 		XYChart.Series series = new XYChart.Series();
 		series.setName("arhivo #US30");
 
-		File file = new File("#US30 prices.txt");
+		File file = new File(fileName);
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(file);
 			BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
-			int contador = 0;
+		int contador = 0;
 			String line = "";
+			
 			while (line != null) {
-				line = bf.readLine();
+			line = bf.readLine();
 				if (line != null) {
 
 					String[] temp = line.split(",");
@@ -52,17 +82,17 @@ public class GraphWindowController implements Initializable {
 					String priceS = temp[2].substring(1);
 					double price = Double.parseDouble(priceS);
 
-					if (contador == 500) {
+					
+					
+					if(contador==500) {
+					series.getData().add(new XYChart.Data(temp2[0], price));
 
-						series.getData().add(new XYChart.Data(temp2[0], price));
-
-						contador = 0;
-
-					} else {
+					contador=0;
+					}else {
 						contador++;
 					}
 
-				}
+			      }
 			}
 
 		} catch (FileNotFoundException e) {
@@ -72,17 +102,8 @@ public class GraphWindowController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		XYChart.Series series2 = new XYChart.Series();
-
-		series2.setName("pa que veas que funciona xd");
-		series2.getData().add(new XYChart.Data("1", 145));
-		series2.getData().add(new XYChart.Data("784", 871));
-		series2.getData().add(new XYChart.Data("7881", 4514));
-		series2.getData().add(new XYChart.Data("8", 77));
-
-		lineChart.getData().addAll(series, series2);
-
+		
+		return series;
 	}
 
 }
