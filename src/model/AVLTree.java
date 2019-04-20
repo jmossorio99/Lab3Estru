@@ -15,7 +15,7 @@ public class AVLTree<T extends Comparable<T>> {
 	public AVLNode<T> getRoot() {
 		return root;
 	}
-	
+
 	public T getMax() {
 
 		AVLNode<T> current = root;
@@ -115,6 +115,10 @@ public class AVLTree<T extends Comparable<T>> {
 				root.setRight(delete(root.getRight(), temp.getData()));
 			}
 
+		}
+
+		if (root == null) {
+			return root;
 		}
 		root.setHeight(Math.max(height(root.getLeft()), height(root.getRight())) + 1);
 		int balanceFactor = balanceFactor(root);
