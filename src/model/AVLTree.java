@@ -12,6 +12,10 @@ public class AVLTree<T extends Comparable<T>> {
 		this.root = root;
 	}
 
+	public AVLNode<T> getRoot() {
+		return root;
+	}
+	
 	public T getMax() {
 
 		AVLNode<T> current = root;
