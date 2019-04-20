@@ -62,7 +62,12 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#highestGrowthYearBtnPressed" text="Highest growth year" />
                   <Button mnemonicParsing="false" onAction="#showGraphBtnPressed" text="Show graph" />
-                  <Button mnemonicParsing="false" onAction="#stockAboveValueBtnPressed" text="wait what" />
+                  <HBox alignment="CENTER" prefHeight="97.0" prefWidth="362.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#stockAboveValueBtnPressed" text="What markets surpass the value: " />
+                        <TextField fx:id="valueTextField" promptText="Value" />
+                     </children>
+                  </HBox>
                   <Button mnemonicParsing="false" onAction="#threeGreatestGrowthBtnPressed" text="Three with the greatest growth" />
                </children>
             </HBox>
