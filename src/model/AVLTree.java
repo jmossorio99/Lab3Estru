@@ -15,7 +15,7 @@ public class AVLTree<T extends Comparable<T>> {
 	public AVLNode<T> getRoot() {
 		return root;
 	}
-	
+
 	public T getMax() {
 
 		AVLNode<T> current = root;
@@ -80,15 +80,21 @@ public class AVLTree<T extends Comparable<T>> {
 
 	}
 
-	public AVLNode<T> delete(AVLNode<T> root, T data) {
+	public void delete(AVLNode<T> root, T data) {
+
+		root = deleteR(root, data);
+
+	}
+
+	public AVLNode<T> deleteR(AVLNode<T> root, T data) {
 
 		if (root == null) {
 			return root;
 		}
 		if (data.compareTo(root.getData()) < 0) {
-			root.setLeft(delete(root.getLeft(), data));
+			root.setLeft(deleteR(root.getLeft(), data));
 		} else if (data.compareTo(root.getData()) > 0) {
-			root.setRight(delete(root.getRight(), data));
+			root.setRight(deleteR(root.getRight(), data));
 		} else {
 
 			if (root.getLeft() == null || root.getRight() == null) {
@@ -112,9 +118,13 @@ public class AVLTree<T extends Comparable<T>> {
 				root.setData(temp.getData());
 				root.setDate(temp.getDate());
 				root.setName(temp.getName());
-				root.setRight(delete(root.getRight(), temp.getData()));
+				root.setRight(deleteR(root.getRight(), temp.getData()));
 			}
 
+		}
+
+		if (root == null) {
+			return root;
 		}
 		root.setHeight(Math.max(height(root.getLeft()), height(root.getRight())) + 1);
 		int balanceFactor = balanceFactor(root);

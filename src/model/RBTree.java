@@ -97,25 +97,25 @@ public class RBTree<T extends Comparable<T>> {
 
 	public RBNode<T> deleteNode(RBNode<T> node) {
 
-		RBNode<T> y = null;
-		RBNode<T> x = null;
-		if (node.getLeft() == null || node.getRight() == null) {
+		RBNode<T> y = nil;
+		RBNode<T> x = nil;
+		if (node.getLeft() == nil || node.getRight() == nil) {
 			y = node;
 		} else {
 			y = getSuccessor(node);
 		}
-		if (y.getLeft() != null) {
+		if (!isNil(y.getLeft())) {
 			x = y.getLeft();
 		} else {
 			x = y.getRight();
 		}
 		x.setParent(y.getParent());
-		if (y.getParent() == null) {
+		if (isNil(y.getParent())) {
 			root = x;
 		} else {
-			if (y == y.getParent().getLeft()) {
+			if (!isNil(y.getParent().getLeft()) && y == y.getParent().getLeft()) {
 				y.getParent().setLeft(x);
-			} else {
+			} else if (!isNil(y.getParent().getRight()) && y == y.getParent().getRight()) {
 				y.getParent().setRight(x);
 			}
 		}
@@ -133,48 +133,68 @@ public class RBTree<T extends Comparable<T>> {
 
 	private void deleteFixUp(RBNode<T> x) {
 
-		RBNode<T> w = null;
+		RBNode<T> w;
 		while (x != root && x.getColor() == BLACK) {
+
 			if (x == x.getParent().getLeft()) {
+
 				w = x.getParent().getRight();
 				if (w.getColor() == RED) {
+
 					w.setColor(BLACK);
 					x.getParent().setColor(RED);
 					leftRotate(x.getParent());
 					w = x.getParent().getRight();
+
 				}
+
 				if (w.getLeft().getColor() == BLACK && w.getRight().getColor() == BLACK) {
+
 					w.setColor(RED);
 					x = x.getParent();
+
 				} else {
+
 					if (w.getRight().getColor() == BLACK) {
+
 						w.getLeft().setColor(BLACK);
 						w.setColor(RED);
 						rightRotate(w);
 					}
+
 					w.setColor(x.getParent().getColor());
 					x.getParent().setColor(BLACK);
 					w.getRight().setColor(BLACK);
 					leftRotate(x.getParent());
 					x = root;
+
 				}
+
 			} else {
+
 				w = x.getParent().getLeft();
 				if (w.getColor() == RED) {
+
 					w.setColor(BLACK);
 					x.getParent().setColor(RED);
 					rightRotate(x.getParent());
 					w = x.getParent().getLeft();
+
 				}
 				if (w.getLeft().getColor() == BLACK && w.getLeft().getColor() == BLACK) {
+
 					w.setColor(RED);
 					x = x.getParent();
+
 				} else {
 					if (w.getLeft().getColor() == BLACK) {
+
 						w.getLeft().setColor(BLACK);
 						w.setColor(RED);
 						leftRotate(w);
+
 					}
+
 					w.setColor(x.getParent().getColor());
 					x.getParent().setColor(BLACK);
 					w.getRight().setColor(BLACK);
