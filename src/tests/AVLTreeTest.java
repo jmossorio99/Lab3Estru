@@ -15,8 +15,15 @@ public class AVLTreeTest {
 	
 	private void setUpScenario2() {
 		setUpScenario1();
-		avl.insert(new Integer(8), null, null);
-		avl.insert(new Integer(6), null, null);
+		avl.insert(8, null, null);
+		avl.insert(6, null, null);
+	}
+	
+	private void setUpScenario3() {
+		setUpScenario2();
+		avl.insert(10, null, null);
+		avl.insert(4, null, null);
+		avl.insert(3, null, null);
 	}
 	
 	@Test
@@ -46,5 +53,14 @@ public class AVLTreeTest {
 		assertNull(avl.getRoot().getRight().getLeft());
 		assertTrue(new AVLNode<Integer>(3, null, null).compareTo(avl.getRoot().getLeft().getLeft()) == 0);
 		assertTrue(new AVLNode<Integer>(5, null, null).compareTo(avl.getRoot().getLeft().getRight()) == 0);
+	}
+	
+	@Test
+	void testDelition() {
+		setUpScenario3();
+		avl.insert(9, null, null);
+		assertTrue(new AVLNode<Integer>(9, null, null).compareTo(avl.getRoot().getRight()) == 0);
+		AVLNode<Integer> deleted = avl.delete(avl.getRoot(), 9);
+		assertTrue(new AVLNode<Integer>(9, null, null).compareTo(deleted) == 0);
 	}
 }
