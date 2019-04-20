@@ -60,7 +60,9 @@ public class AVLTreeTest {
 		setUpScenario3();
 		avl.insert(9, null, null);
 		assertTrue(new AVLNode<Integer>(9, null, null).compareTo(avl.getRoot().getRight()) == 0);
-		AVLNode<Integer> deleted = avl.delete(avl.getRoot(), 9);
-		assertTrue(new AVLNode<Integer>(9, null, null).compareTo(deleted) == 0);
+		avl.delete(avl.getRoot(), 9);
+		assertTrue(new AVLNode<Integer>(10, null, null).compareTo(avl.getRoot().getRight()) == 0);
+		assertNull(avl.getRoot().getRight().getRight());
+		assertNotNull(avl.getRoot().getRight().getLeft());
 	}
 }
