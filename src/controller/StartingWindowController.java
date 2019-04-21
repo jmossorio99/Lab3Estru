@@ -146,8 +146,6 @@ public class StartingWindowController implements Initializable {
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			Stage window = new Stage();
-			GraphWindowController c = loader.getController();
-			c.graphTwoFiles("#US30 prices.txt", "BTCUSD prices.txt");
 			window.setResizable(false);
 			window.setScene(scene);
 			window.setTitle("Graph View");

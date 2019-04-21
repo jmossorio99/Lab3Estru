@@ -7,7 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +21,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
 public class GraphWindowController implements Initializable {
@@ -26,20 +31,62 @@ public class GraphWindowController implements Initializable {
 	@FXML
 	private NumberAxis y;
 	@FXML
-	private ListView<?> listView;
+	private ListView<String> listView;
 	@FXML
 	private ImageView addImg;
 	@FXML
 	private ImageView deleteImg;
 
+	private int itemsSelected;
+    
+	 private ArrayList<String> itemsToGraph;
+	
 	@FXML
 	void addButtonClicked(ActionEvent event) {
 
+		if(itemsSelected<=3) {
+    		
+    		String selected = listView.getSelectionModel().getSelectedItem();
+    		
+    		System.out.println(selected);
+    		
+    		if(itemsToGraph.contains(selected)) {
+    			JOptionPane.showMessageDialog(null, "cannot add the same file twice");
+    		}
+    		else{
+    			
+    			itemsToGraph.add(selected);
+    			
+    			graphItemsToGraph();
+    			
+    			itemsSelected++;
+    		}
+    		
+    		
+    	}else {
+    		JOptionPane.showMessageDialog(null, "uper limit 3");
+    	}
+    	
+		
 	}
 
 	@FXML
 	void removeButtonClicked(ActionEvent event) {
 
+		String selected = listView.getSelectionModel().getSelectedItem();
+    	
+    	if(itemsToGraph.contains(selected)) {
+    		
+    		itemsToGraph.remove(selected);
+    		
+    		graphItemsToGraph();
+    		
+    		itemsSelected--;
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(null, "cannot remove a file that isnt in the graph");
+    	}
+		
 	}
 
 	@FXML
@@ -48,12 +95,37 @@ public class GraphWindowController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		itemsToGraph=new ArrayList<String>();
+		itemsSelected=0;
+		listView.getItems().addAll("#US30","#USSPX500","#WTI","BTCUSD","EURUSD","GBPCAD","USDJPY","XAUUSD");
+		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		
 		y.setAutoRanging(false);
 		y.setLowerBound(-3);
 		y.setUpperBound(3);
 		y.setTickUnit(0.05);
 		lineChart.setTitle("Graph");
 
+	}
+	
+public void graphItemsToGraph() {
+		
+		lineChart.getData().clear();
+		
+		if(itemsToGraph.size()==1) {
+			
+			graphOneFile(itemsToGraph.get(0)+" prices.txt");
+			
+		}
+		else if(itemsToGraph.size()==2) {
+			
+			graphTwoFiles(itemsToGraph.get(0)+" prices.txt",itemsToGraph.get(1)+" prices.txt");
+			
+		}
+		else if(itemsToGraph.size()==3){
+			
+			graphThreeFiles(itemsToGraph.get(0)+" prices.txt",itemsToGraph.get(1)+" prices.txt",itemsToGraph.get(2)+" prices.txt");	
+		}
 	}
 
 	public void graphOneFile(String fileName) {
