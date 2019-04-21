@@ -55,4 +55,13 @@ public class RBTreeTest {
 		assertEquals(RBTree.RED, rb.getRoot().getLeft().getRight().getLeft().getColor());
 		assertEquals(RBTree.RED, rb.getRoot().getLeft().getRight().getLeft().getColor());
 	}
+	
+	@Test
+	void testDeletion() {
+		setUpScenario3();
+		RBNode<Integer> temp = rb.search(7);
+		rb.deleteNode(temp);
+		assertEquals(RBTree.BLACK, rb.getRoot().getLeft().getRight().getColor());
+		assertEquals(RBTree.RED, rb.getRoot().getLeft().getRight().getLeft().getColor());
+	}
 }
