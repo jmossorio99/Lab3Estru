@@ -6,9 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -269,6 +267,21 @@ public class StartingWindowController implements Initializable {
 
 	@FXML
 	void threeGreatestGrowthBtnPressed(ActionEvent event) {
+
+		if (!initialDateTextField.getText().isEmpty() && !finalDateTextField.getText().isEmpty()
+				&& correctDateFormat()) {
+
+			HighestGrowthFinder hgf = new HighestGrowthFinder(initialDateTextField.getText(),
+					finalDateTextField.getText(), fileNames);
+			try {
+				resultLbl.setText(hgf.findThreeGreatestGrowth());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the date entered", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 
 	}
 
