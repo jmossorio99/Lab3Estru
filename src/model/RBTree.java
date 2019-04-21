@@ -16,6 +16,10 @@ public class RBTree<T extends Comparable<T>> {
 
 	}
 
+	public RBNode<T> getRoot(){
+		return root;
+	}
+	
 	public void insert(RBNode<T> z) {
 
 		RBNode<T> x = root;
