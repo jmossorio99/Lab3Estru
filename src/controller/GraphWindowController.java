@@ -35,55 +35,51 @@ public class GraphWindowController implements Initializable {
 	private ImageView deleteImg;
 
 	private int itemsSelected;
-    
-	 private ArrayList<String> itemsToGraph;
-	
+
+	private ArrayList<String> itemsToGraph;
+
 	@FXML
 	void addButtonClicked(MouseEvent event) {
 
-		if(itemsSelected<=3) {
-    		
-    		String selected = listView.getSelectionModel().getSelectedItem();
-    		
-    		System.out.println(selected);
-    		
-    		if(itemsToGraph.contains(selected)) {
-    			JOptionPane.showMessageDialog(null, "cannot add the same file twice");
-    		}
-    		else{
-    			
-    			itemsToGraph.add(selected);
-    			
-    			graphItemsToGraph();
-    			
-    			itemsSelected++;
-    		}
-    		
-    		
-    	}else {
-    		JOptionPane.showMessageDialog(null, "uper limit 3");
-    	}
-    	
-		
+		if (itemsSelected < 3) {
+
+			String selected = listView.getSelectionModel().getSelectedItem();
+
+			System.out.println(selected);
+
+			if (itemsToGraph.contains(selected)) {
+				JOptionPane.showMessageDialog(null, "cannot add the same file twice");
+			} else {
+
+				itemsToGraph.add(selected);
+
+				graphItemsToGraph();
+
+				itemsSelected++;
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "uper limit 3");
+		}
+
 	}
 
 	@FXML
 	void removeButtonClicked(MouseEvent event) {
 
 		String selected = listView.getSelectionModel().getSelectedItem();
-    	
-    	if(itemsToGraph.contains(selected)) {
-    		
-    		itemsToGraph.remove(selected);
-    		
-    		graphItemsToGraph();
-    		
-    		itemsSelected--;
-    	}
-    	else {
-    		JOptionPane.showMessageDialog(null, "cannot remove a file that isnt in the graph");
-    	}
-		
+
+		if (itemsToGraph.contains(selected)) {
+
+			itemsToGraph.remove(selected);
+
+			graphItemsToGraph();
+
+			itemsSelected--;
+		} else {
+			JOptionPane.showMessageDialog(null, "cannot remove a file that isnt in the graph");
+		}
+
 	}
 
 	@FXML
@@ -92,11 +88,11 @@ public class GraphWindowController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		itemsToGraph=new ArrayList<String>();
-		itemsSelected=0;
-		listView.getItems().addAll("#US30","#USSPX500","#WTI","BTCUSD","EURUSD","GBPCAD","USDJPY","XAUUSD");
+		itemsToGraph = new ArrayList<String>();
+		itemsSelected = 0;
+		listView.getItems().addAll("#US30", "#USSPX500", "#WTI", "BTCUSD", "EURUSD", "GBPCAD", "USDJPY", "XAUUSD");
 		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		
+
 		y.setAutoRanging(false);
 		y.setLowerBound(-3);
 		y.setUpperBound(3);
@@ -104,24 +100,23 @@ public class GraphWindowController implements Initializable {
 		lineChart.setTitle("Graph");
 
 	}
-	
-public void graphItemsToGraph() {
-		
+
+	public void graphItemsToGraph() {
+
 		lineChart.getData().clear();
-		
-		if(itemsToGraph.size()==1) {
-			
-			graphOneFile(itemsToGraph.get(0)+" prices.txt");
-			
-		}
-		else if(itemsToGraph.size()==2) {
-			
-			graphTwoFiles(itemsToGraph.get(0)+" prices.txt",itemsToGraph.get(1)+" prices.txt");
-			
-		}
-		else if(itemsToGraph.size()==3){
-			
-			graphThreeFiles(itemsToGraph.get(0)+" prices.txt",itemsToGraph.get(1)+" prices.txt",itemsToGraph.get(2)+" prices.txt");	
+
+		if (itemsToGraph.size() == 1) {
+
+			graphOneFile(itemsToGraph.get(0) + " prices.txt");
+
+		} else if (itemsToGraph.size() == 2) {
+
+			graphTwoFiles(itemsToGraph.get(0) + " prices.txt", itemsToGraph.get(1) + " prices.txt");
+
+		} else if (itemsToGraph.size() == 3) {
+
+			graphThreeFiles(itemsToGraph.get(0) + " prices.txt", itemsToGraph.get(1) + " prices.txt",
+					itemsToGraph.get(2) + " prices.txt");
 		}
 	}
 
