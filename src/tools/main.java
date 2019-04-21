@@ -15,6 +15,8 @@ public class main {
 		ramdom = new Random();
 		double original = 25600.0;
 		String us="#US30";	
+		int base=100;
+		int variacion=150;
 		int day =3;
 		int month=3;
 		int year=2019;
@@ -42,7 +44,7 @@ public class main {
 							
 								
 								double decimales=ramdom.nextInt(10)/10.0;
-								double number = original + (100+ramdom.nextInt(150))+decimales;
+								double number = original + (base+ramdom.nextInt(variacion))+decimales;
 								String toWrite=us+", "+day+"/"+month+"/"+year+" "+hour+":"+minutes+", "+number;
 								pr.println(toWrite);
 								datos++;
@@ -68,16 +70,6 @@ public class main {
 			e.printStackTrace();
 		}
 		
-		/**
-		 * 
-		 * double decimales=ramdom.nextInt(10)/10.0;
-					double number = original + (100+ramdom.nextInt(150))+decimales;
-					String toWrite=us+", "+day+"/2/2019 "+hour+":"+minutes+", "+number;
-					pr.println(toWrite);
-					datos++;
-					System.out.println(""+datos);
-					minutes++;
-		 */
 	}
 
 	
