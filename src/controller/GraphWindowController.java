@@ -9,20 +9,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class GraphWindowController implements Initializable {
 
@@ -42,7 +39,7 @@ public class GraphWindowController implements Initializable {
 	 private ArrayList<String> itemsToGraph;
 	
 	@FXML
-	void addButtonClicked(ActionEvent event) {
+	void addButtonClicked(MouseEvent event) {
 
 		if(itemsSelected<=3) {
     		
@@ -71,7 +68,7 @@ public class GraphWindowController implements Initializable {
 	}
 
 	@FXML
-	void removeButtonClicked(ActionEvent event) {
+	void removeButtonClicked(MouseEvent event) {
 
 		String selected = listView.getSelectionModel().getSelectedItem();
     	
