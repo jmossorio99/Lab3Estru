@@ -1,11 +1,18 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +26,7 @@ import model.HighestGrowthFinder;
 import model.LimitReader;
 import model.RBTree;
 
-public class StartingWindowController {
+public class StartingWindowController implements Initializable {
 
 	@FXML
 	private TextField initialDateTextField;
@@ -27,6 +34,8 @@ public class StartingWindowController {
 	private TextField finalDateTextField;
 	@FXML
 	private HBox togglesHBox;
+	@FXML
+	private HBox resultsHBox;
 	@FXML
 	private ToggleButton US30Toggle;
 	@FXML
@@ -44,6 +53,8 @@ public class StartingWindowController {
 	@FXML
 	private ToggleButton XAUUSDToggle;
 	@FXML
+	private TextField valueTextField;
+	@FXML
 	private Label textResultLbl;
 	@FXML
 	private Label resultLbl;
@@ -54,6 +65,7 @@ public class StartingWindowController {
 	RBTree<String> rbt;
 	LimitReader reader;
 	HighestGrowthFinder hgf;
+	ArrayList<String> fileNames = new ArrayList<String>();
 
 	@FXML
 	void highestPriceBtnPressed(ActionEvent event) {
@@ -133,7 +145,6 @@ public class StartingWindowController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/GraphWindowView.fxml"));
-
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			Stage window = new Stage();
@@ -151,12 +162,17 @@ public class StartingWindowController {
 	@FXML
 	void highestGrowthYearBtnPressed(ActionEvent event) {
 
-		hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
-		try {
-			textResultLbl.setText("The year with the highest growth for the market " + toggled.getText() + " is: ");
-			resultLbl.setText(hgf.findHighestGrowthYear());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (toggled != null) {
+			hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+			try {
+				textResultLbl.setText("The year with the highest growth for the market " + toggled.getText() + " is: ");
+				resultLbl.setText(hgf.findHighestGrowthYear());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the market selection", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -164,12 +180,17 @@ public class StartingWindowController {
 	@FXML
 	void highestGrowthDayBtnPressed(ActionEvent event) {
 
-		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
-		try {
-			textResultLbl.setText("The day with the highest growth for the market " + toggled.getText() + " is: ");
-			resultLbl.setText(hgf.findHighestGrowthDay());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (toggled != null) {
+			HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+			try {
+				textResultLbl.setText("The day with the highest growth for the market " + toggled.getText() + " is: ");
+				resultLbl.setText(hgf.findHighestGrowthDay());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the market selection", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -177,18 +198,72 @@ public class StartingWindowController {
 	@FXML
 	void highestGrowthMonthBtnPressed(ActionEvent event) {
 
-		HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
-		try {
-			textResultLbl.setText("The month with the highest growth for the market " + toggled.getText() + " is: ");
-			resultLbl.setText(hgf.findHighestGrowthMonth());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (toggled != null) {
+			HighestGrowthFinder hgf = new HighestGrowthFinder(toggled.getText() + " prices.txt");
+			try {
+				textResultLbl
+						.setText("The month with the highest growth for the market " + toggled.getText() + " is: ");
+				resultLbl.setText(hgf.findHighestGrowthMonth());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the market selection", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
 
 	@FXML
 	void stockAboveValueBtnPressed(ActionEvent event) {
+
+		if (!initialDateTextField.getText().isEmpty() && !finalDateTextField.getText().isEmpty() && correctDateFormat()
+				&& !valueTextField.getText().isEmpty()) {
+
+			String result = "";
+			LimitReader lr = new LimitReader(initialDateTextField.getText(), finalDateTextField.getText(), "");
+			for (int i = 0; i < fileNames.size(); i++) {
+
+				File file = new File(fileNames.get(i));
+				if (file.exists()) {
+
+					lr.setFileName(fileNames.get(i));
+					if (fileNames.get(i).contains("#")) {
+						try {
+							AVLTree<String> avl = lr.getAlvOnLimit();
+							if (avl.valueAboveData(valueTextField.getText())) {
+								result += fileNames.get(i).split(" ")[0] + " ";
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else {
+						try {
+							RBTree<String> rbt = lr.getRbOnLimit();
+							if (rbt.valueAboveData(valueTextField.getText())) {
+								result += fileNames.get(i).split(" ")[0] + " ";
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
+
+			}
+
+			if (result.equals("")) {
+				textResultLbl.setText("There are no markets that surpass such value in that time interval");
+				resultLbl.setText("");
+			} else {
+				textResultLbl.setText("");
+				resultLbl.setText(result);
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Please verify the date and the value entered", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 
 	}
 
@@ -234,6 +309,20 @@ public class StartingWindowController {
 			return true;
 		}
 		return false;
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+		fileNames.add("#US30 prices.txt");
+		fileNames.add("#USSPX500 prices.txt");
+		fileNames.add("#WTI prices.txt");
+		fileNames.add("BTCUSD prices.txt");
+		fileNames.add("EURUSD prices.txt");
+		fileNames.add("GBPCAD prices.txt");
+		fileNames.add("USDJPY prices.txt");
+		fileNames.add("XAUUSD prices.txt");
 
 	}
 

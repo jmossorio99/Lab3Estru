@@ -160,4 +160,8 @@ public class LimitReader {
 		return onTheLimit;
 	}
 
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 }

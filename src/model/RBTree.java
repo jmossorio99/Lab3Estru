@@ -16,10 +16,10 @@ public class RBTree<T extends Comparable<T>> {
 
 	}
 
-	public RBNode<T> getRoot(){
+	public RBNode<T> getRoot() {
 		return root;
 	}
-	
+
 	public void insert(RBNode<T> z) {
 
 		RBNode<T> x = root;
@@ -340,6 +340,36 @@ public class RBTree<T extends Comparable<T>> {
 
 		}
 		return null;
+
+	}
+
+	public boolean valueAboveData(T data) {
+
+		if (isNil(root)) {
+			return false;
+		} else {
+			double dataD = Double.parseDouble((String) data);
+			if (dataD < (Double.parseDouble((String) root.getData()))) {
+				return true;
+			} else {
+				return valueAboveData(root.getRight(), data);
+			}
+		}
+
+	}
+
+	private boolean valueAboveData(RBNode<T> node, T data) {
+
+		if (!isNil(node)) {
+			double dataD = Double.parseDouble((String) data);
+			if (dataD < (Double.parseDouble((String) node.getData()))) {
+				return true;
+			} else {
+				return valueAboveData(node.getRight(), data);
+			}
+		} else {
+			return false;
+		}
 
 	}
 

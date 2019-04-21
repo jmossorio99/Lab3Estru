@@ -193,4 +193,34 @@ public class AVLTree<T extends Comparable<T>> {
 
 	}
 
+	public boolean valueAboveData(T data) {
+
+		if (root != null) {
+			double dataD = Double.parseDouble((String) data);
+			if (dataD < (Double.parseDouble((String) root.getData()))) {
+				return true;
+			} else {
+				return valueAboveData(root.getRight(), data) || valueAboveData(root.getLeft(), data);
+			}
+		} else {
+			return false;
+		}
+
+	}
+
+	private boolean valueAboveData(AVLNode<T> node, T data) {
+
+		if (node != null) {
+			double dataD = Double.parseDouble((String) data);
+			if (dataD < (Double.parseDouble((String) node.getData()))) {
+				return true;
+			} else {
+				return valueAboveData(node.getRight(), data) || valueAboveData(node.getLeft(), data);
+			}
+		} else {
+			return false;
+		}
+
+	}
+
 }

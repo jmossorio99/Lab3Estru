@@ -51,19 +51,19 @@ public class GraphWindowController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		
-        lineChart.setTitle("Grafh");
+        lineChart.setTitle("Graph");
 		
 
 	}
 	
-	public void grafhOneFile(String fileName) {
+	public void graphOneFile(String fileName) {
 		
 		XYChart.Series series = addSeries(fileName);
 		lineChart.getData().addAll(series);
 		
 	}
 	
-	public void grafhTwoFiles(String fileName1,String fileName2) {
+	public void graphTwoFiles(String fileName1,String fileName2) {
 		
 		XYChart.Series series = addSeries(fileName1);
 		XYChart.Series series2 = addSeries(fileName2);
@@ -71,7 +71,7 @@ public class GraphWindowController implements Initializable {
 		
 	}
 	
-	public void grafhThreeFiles(String fileName1,String fileName2,String fileName3) {
+	public void graphThreeFiles(String fileName1,String fileName2,String fileName3) {
 		
 		XYChart.Series series = addSeries(fileName1);
 		XYChart.Series series2 = addSeries(fileName2);
