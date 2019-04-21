@@ -15,10 +15,10 @@
    <children>
       <LineChart fx:id="lineChart" layoutX="134.0" layoutY="103.0" prefHeight="451.0" prefWidth="732.0" title="lineChart">
         <xAxis>
-          <CategoryAxis side="BOTTOM" fx:id="x" />
+          <CategoryAxis label="Date" side="BOTTOM" fx:id="x" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="y" side="LEFT" upperBound="0.0" />
+          <NumberAxis fx:id="y" label="Percentage of variation" side="LEFT" upperBound="0.0" />
         </yAxis>
       </LineChart>
       <Label layoutX="463.0" layoutY="14.0" prefHeight="40.0" prefWidth="75.0" text="graph" textAlignment="CENTER">
